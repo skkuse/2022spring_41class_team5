@@ -7,7 +7,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
-const code = require("./api/code/code")
+const code = require("./api/code")
 app.use('/api/code', code)
 
 const port = process.env.PORT || 8000
