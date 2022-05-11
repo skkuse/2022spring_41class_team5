@@ -1,0 +1,91 @@
+.row-center-align {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.row-component-size {
+    width: 40vw;
+    min-height: 60vh;
+    margin-left: 16px;
+    margin-right: 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-title {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.content-sub {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.content-box {
+    width: 28vw;
+    padding: 1vw;
+    border: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.content-text {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.entire-index-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: green;
+
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.modal-box {
+    width: 40vw;
+    height: 60vh;
+    border: 1px solid black;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.description-text {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.input-box {
+    width: 40vw;
+    min-height: 50px;
+    margin-top: 16px;
+}
+
+.submit-button {
+    width: 120px;
+    height: 40px;
+    margin-top: 12px;
+}
+
+.result-box {
+    width: 40vw;
+    min-height: 80px;
+    margin-top: 16px;
+}
