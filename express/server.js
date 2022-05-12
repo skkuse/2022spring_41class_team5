@@ -17,10 +17,10 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 const code = require("./api/code")
-app.use('/api/code', code)
+app.use('/api', code)
 
 const server = http.createServer(app)
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 8000
 
 // Socket.io를 app.io에 세팅
 app.io = require('socket.io')(server, {
@@ -32,10 +32,11 @@ app.io = require('socket.io')(server, {
 
 // redis-socket.io 연결
 // 다중 인스턴스간 데이터 공유
-app.io.adapter(createAdapter(pubServer, subServer))
+// app.io.adapter(createAdapter(pubServer, subServer))
 
 // socket은 기본적으로 event 방식으로 작동
-app.io.on('connection', (socket) => {
+const history = app.io.of("/history")
+history.on('connection', (socket) => {
     console.log('User In')
 
     socket.on('disconnect', () => {
@@ -47,6 +48,7 @@ app.io.on('connection', (socket) => {
     // 전체 사용자에게 뿌려줍니다. 
     socket.on('chat-msg', (msg) => {
         app.io.emit('chat-msg', msg)
+        console.log(msg.name)
     })
 })
 

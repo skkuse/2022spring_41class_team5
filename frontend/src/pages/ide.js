@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {code} from "./defaultCode"
 import Editor from "@monaco-editor/react"
+import io from "socket.io-client"
 
 import "../css/main.css"
 import "../css/ide.css"
@@ -70,6 +71,16 @@ export default function Ide() {
     const onModalClick = () => {
         setModal(!modal)
     }
+
+    
+
+    useEffect(() => {
+        setTimeout(() => {
+            // 웹 소켓 연동
+            const socket = io.connect("http://localhost:8000/history")
+            socket.emit("chat-msg", {name: "test"})
+        }, 2000)
+    }, [setting])
 
     return (
         <>

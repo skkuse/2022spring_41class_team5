@@ -1,3 +1,5 @@
 express/node_modules
 express/.DS_Store
+frontend/node_modules
+frontend/.DS_Store
 .DS_Store
