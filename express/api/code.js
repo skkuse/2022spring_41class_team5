@@ -16,7 +16,7 @@ const deleteFile = (filename) => {
     })
 }
 
-const execute = require('../complie/compile')
+const execute = require('./compile')
 
 router.post('/submit', (req, res) => {
     console.log(req.body)
