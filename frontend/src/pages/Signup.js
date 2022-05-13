@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import "../css/main.css"
 import "../css/login.css"
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 export default function Signup() {
+    const navigate = useNavigate()
+    const goToLogin = () => {
+        navigate("/login")
+    }
     const [email, setemail] = useState("");
     const [name, setname] = useState("");
     const [password, setpassword] = useState("");
@@ -31,15 +35,16 @@ export default function Signup() {
                     <button
                         onClick={()=> {
                             axios
-                            .post("https://127.0.0.1:5000", {
+                            .post("https://127.0.0.1:5000/", { //서버이름
                              name : name,
                              email : email,
                              password : password,
                         })
                         .then(function(response){
                             console.log(response);
+                            goToLogin()
                         })
-
+                        
                         .catch(function(error){
                             console.log(error);
                         });}}
