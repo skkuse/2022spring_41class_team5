@@ -15,7 +15,12 @@ const java = `class test {
 }
 `
 
-const python = `# Your code will come here
+const python = `
+# Your code will come here
+def solution():
+    answer = 0
+
+    return answer
 `
 
 export const code = {
