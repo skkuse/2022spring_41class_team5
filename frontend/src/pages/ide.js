@@ -58,7 +58,7 @@ export default function Ide() {
     const onSubmitHandler = (e) => {
         e.preventDefault()
         alert("코드를 제출하셨습니다.")
-        fetch("http://localhost:8000/api/submit", {
+        fetch("/api/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
