@@ -1,0 +1,53 @@
+(예시코드1)
+treehit=0
+while treehit<10:
+    treehit=treehit+1
+    print("나무를 %d 번 찍었습니다." % treehit)
+    if treehit==10:
+        print("나무가 넘어갑니다")
+        
+
+(예시코드2)
+treehit=0
+while treehit<10:
+    treehit=treehit+1
+    print("나무를 %d 번 찍었습니다." % treehit)
+    if treehit==5:
+        print("나무가 아파합니다")
+        break
+        
+
+(예시코드3)
+treehit=0
+while treehit<10:
+    treehit=treehit+1
+    if treehit%2==1:
+        continue
+    print("나무를 %d 번 찍었습니다." % treehit)
+        
+    if treehit==10:
+        print("나무가 넘어갑니다")
+        
+        
+(예시코드4)
+number=['one','two','three']
+for i in number:
+    print(i)
+    
+    
+(실습 문제1)
+
+num=1
+sum=0
+while num<100:
+    if num%3==0:
+        sum+=num
+    num+=1
+print(sum)
+
+(실습 문제2)
+sum=0
+for score in scores:
+    sum+=score
+average=sum/len(scores)
+print(average)

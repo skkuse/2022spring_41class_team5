@@ -1,0 +1,66 @@
+(예시코드1)
+class Calculator:
+    def __init__(self):
+        self.result=0
+        
+
+(예시코드2)
+def add(result,num):
+    return result+num
+
+def sub(result,num):
+    return result-num
+
+def mul(result,num):
+    return result*num
+
+def div(result,num):
+    return result/num
+
+
+
+(예시코드3)
+class Calculator:
+    def __init__(self):
+        self.result=0
+    
+    def add(self,result,num):
+        return result+num
+
+    
+    def sub(self,result,num):
+        return result-num
+
+    
+    def mul(self,result,num):
+        return result*num
+
+    
+    def div(self,result,num):
+        return result/num
+
+
+(예시코드4)
+class Calculator:
+    def __init__(self):
+        self.result=0
+    
+    def add(self,num):
+        self.result+=num
+        return self.result
+
+    
+    def sub(self,num):
+        self.result-=num
+        return self.result
+
+    
+    def mul(self,num):
+        self.result*=num
+        return self.result
+
+    
+    def div(self,num):
+        self.result/=num
+        return self.result
+
