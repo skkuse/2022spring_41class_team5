@@ -4,19 +4,20 @@ from .models import *
 class userSerializer(serializers.ModelSerializer) :
     class Meta :
         model = user        
-        fields = ['user_id' ,'name','email','password']            
+        fields = ['name','email','password']       
+             
 
 
 class progressSerializer(serializers.ModelSerializer) :
     class Meta :
         model = progress        
-        fields = ['user_id' ,'problem_id']   
+        fields = ['email' ,'problem_id_text']   
        
         
 class submitSerializer(serializers.ModelSerializer) :
     class Meta :
         model = submit        
-        fields = ['user_id' ,'code','problem_id']   
+        fields = ['email' ,'code','problem_id']   
         
         
 class problemSerializer(serializers.ModelSerializer) :
@@ -29,3 +30,8 @@ class contentSerializer(serializers.ModelSerializer) :
     class Meta :
         model = content        
         fields = ['content_id' ,'content_content']   
+        
+class emailSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = content        
+        fields = ['email'] 
