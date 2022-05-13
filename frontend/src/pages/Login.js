@@ -8,6 +8,11 @@ export default function Login() {
     const goToSignup = () => {
         navigate("/signup")
     }
+
+    const goToIDE = () => {
+        navigate("/ide")
+    }
+
     return (
         <>
             <div className="center-align entire">
@@ -17,7 +22,7 @@ export default function Login() {
                     <input className="login-input" />
                     <div className="login-title">비밀번호</div>
                     <input className="login-input" />
-                    <div className="center-align login-button">로그인하기</div>
+                    <div onClick={goToIDE} className="center-align login-button">로그인하기</div>
                     <div onClick={goToSignup} className="sub-text">비밀번호를 잊어버렸나요?</div>
                 </div>
             </div>
