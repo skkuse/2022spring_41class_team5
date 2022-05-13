@@ -22,7 +22,7 @@ export default function Signup() {
                             axios
                             .post("http://127.0.0.1:5000/api/user/", {
                              name : "name",
-                             email : "email432",
+                             email : "email4132",
                              password : "password",
                         })
                         .then(function(response){
