@@ -7,13 +7,14 @@ const saveFile = (name, data) => {
         console.log("SAVING FILES")
         fs.writeFileSync(name, data, function(err) {
             if (err) {
-                console.log(err)
+                console.log("error", err)
                 reject()
             } else {
                 console.log("The File was saved!")
                 resolve()
             }
         })
+        console.log("file saved in saveFile")
     })
 }
 
@@ -198,32 +199,33 @@ const pythonExecute = (data, input) => {
     }
     return new Promise((resolve, reject) => {
         const fileName = "test.py"
-        saveFile(fileName, data)
-            .then(() => {
-                fs.writeFileSync("input.txt", input, function(err) {
-                    if (err) {
-                        console.log(err)
-                        reject()
-                    }
-                })
-                const filePath = path.join(__dirname, "../test.py")
-                console.log("FILE PATH >> " + filePath)
-                const inputPath = path.join(__dirname, "../input.txt")
+        saveFile(fileName, data).then(() => {
+                // fs.writeFile("input.txt", input, function(err) {
+                //     if (err) {
+                //         console.log(err)
+                //         reject()
+                //     } else {
+                //         console.log("input.txt 생성")
+                //     }
+                // })
+                // const filePath = path.join(__dirname, "../test.py")
+                // console.log("FILE PATH >> " + filePath)
+                // const inputPath = path.join(__dirname, "../input.txt")
 
-                exec("python3 " + filePath + " < " + inputPath, (err, stdout, stderr) => {
-                    if (err) {
-                        console.error(`exec error: ${err}`)
-                        resolve({
-                            err: true,
-                            output: err,
-                            error: stderr
-                        })
-                    }
-                    resolve({
-                        err: false,
-                        output: stdout
-                    })
-                })
+                // exec("python3 " + filePath + " < " + inputPath, (err, stdout, stderr) => {
+                //     if (err) {
+                //         console.error(`exec error: ${err}`)
+                //         resolve({
+                //             err: true,
+                //             output: err,
+                //             error: stderr
+                //         })
+                //     }
+                //     resolve({
+                //         err: false,
+                //         output: stdout
+                //     })
+                // })
             })
             .catch((e) => {
                 console.log("ERROR SAVE FILE " + e)
@@ -232,6 +234,33 @@ const pythonExecute = (data, input) => {
                     output: "Internal Server Error!"
                 }
                 resolve(err)
+            })
+
+            fs.writeFile("input.txt", input, function(err) {
+                if (err) {
+                    console.log(err)
+                    reject()
+                } else {
+                    console.log("input.txt 생성")
+                }
+            })
+            const filePath = path.join(__dirname, "../test.py")
+            console.log("FILE PATH >> " + filePath)
+            const inputPath = path.join(__dirname, "../input.txt")
+
+            exec("python3 " + filePath + " < " + inputPath, (err, stdout, stderr) => {
+                if (err) {
+                    console.error(`exec error: ${err}`)
+                    resolve({
+                        err: true,
+                        output: err,
+                        error: stderr
+                    })
+                }
+                resolve({
+                    err: false,
+                    output: stdout
+                })
             })
     })
 }

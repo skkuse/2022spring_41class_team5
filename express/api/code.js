@@ -29,11 +29,14 @@ router.post('/submit', (req, res) => {
         case "python": return execute.pythonExecute(code, input)
                                 .then(data => {
                                     console.log("SUCCESSFULL PROMISE " + data)
-                                    console.log("SENDING " + data)
-                                    res.json(data)
-                                    deleteFile(path.join(__dirname, '../../input.txt'))
-                                    deleteFile(path.join(__dirname, '../../test.py'))
-                                    deleteFile(path.join(__dirname, '../../a.exe'))
+                                    console.log("SENDING " + data.output)
+                                    result = ""
+                                    result += data.output
+                                    console.log("result", JSON.stringify({"result": result}))
+                                    res.json({result: result})
+                                    deleteFile(path.join(__dirname, '../input.txt'))
+                                    deleteFile(path.join(__dirname, '../test.py'))
+                                    deleteFile(path.join(__dirname, '../a.exe'))
                                 })
                                 .catch(err => {
                                     console.log("ERROR PROMISE " + err)
