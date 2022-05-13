@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {code} from "./defaultCode"
 import Editor from "@monaco-editor/react"
-import io from "socket.io-client"
 
 import "../css/main.css"
 import "../css/ide.css"
@@ -10,9 +9,10 @@ export default function Ide() {
     // ide 환경 변수
     const [setting, setSetting] = useState({
         code: code.python,
-        result: '코드를 작성하면 결과가 나옵니다',
-        lang: 'python' 
+        lang: 'python',
+        input: ''
     })
+    const [result, setResult] = useState("코드를 작성하면 결과가 나옵니다")
 
     // language가 바뀔 때 변경
     const onLanguageChange = (e) => {
@@ -53,6 +53,32 @@ export default function Ide() {
             autoFindInSelection: "always"
         },
         snippetSuggestions: "inline"
+    }
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault()
+        alert("코드를 제출하셨습니다.")
+        fetch("http://localhost:8000/api/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                code: setting.code,
+                lang: setting.lang,
+                input: setting.input,
+                result: result,
+            })
+        }).then(response => {
+            console.log(response.clone().json())
+            const data = response.json()
+            data.then((res) => {
+                console.log("res", res.result)
+                setResult(res.result)
+            })
+        }).catch(err => {
+            console.log("error", err)
+        })
     }
 
     // 학습내용
@@ -178,10 +204,10 @@ export default function Ide() {
                             <textarea className='input-box' typeof='text' id="input" value={setting.input} onChange={onInputChangeHandler} />
                         </div>
                     </div>
-                    <button className='submit-button' style={{
+                    <button onClick={onSubmitHandler} className='submit-button' style={{
                         alignSelf: "flex-start"
                     }}>Submit Code</button>
-                    <textarea className='result-box' typeof='text' id='result' value={setting.result} disabled={true}></textarea>
+                    <textarea className='result-box' typeof='text' id='result' value={result} disabled={true}></textarea>
                 </div>
             </div>
         </>
