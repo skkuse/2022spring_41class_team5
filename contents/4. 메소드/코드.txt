@@ -11,9 +11,6 @@ print(add(3,4))
 def one():
     return 1
 
-(예시코드4)    
-print(one())
-
 <결과 : 1>
 
 
