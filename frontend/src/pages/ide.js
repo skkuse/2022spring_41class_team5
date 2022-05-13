@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {code} from "./defaultCode"
 import Editor from "@monaco-editor/react"
+import io from "socket.io-client"
 
 import "../css/main.css"
 import "../css/ide.css"
@@ -66,10 +67,57 @@ export default function Ide() {
         ]
     })
 
-    const [modal, setModal] = useState(true)
+    const [modal, setModal] = useState(false)
     const onModalClick = () => {
         setModal(!modal)
     }
+
+    
+    var ws = useRef(null)
+    const [socketConnect, setSocketConnect] = useState(false)
+
+    useEffect(() => {
+        if (!ws.current) {
+            ws.current = new WebSocket("ws://localhost:8000")
+
+            ws.current.onopen = () => {
+                console.log("connected");
+                setSocketConnect(true)
+            }
+            ws.current.onclose = (error) => {
+                console.log("disconnect");
+                console.log(error);
+            };
+            ws.current.onerror = (error) => {
+                console.log("connection error");
+                console.log(error);
+            };
+            ws.current.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                console.log(data.code);
+                setSetting({
+                    ...setting,
+                    code: data.code,
+                })
+            };
+        }
+        // const socket = io.connect("http://localhost:8000/history")
+        // socket.emit("code", {code: setting.code})
+        // return () => {
+        //     console.log("clean up")
+        //     ws.current.close()
+        // }
+    }, [])
+
+    useEffect(() => {
+        if (socketConnect) {
+            ws.current.send(
+                JSON.stringify({
+                    code: setting.code
+                })
+            )
+        }
+    }, [socketConnect, setting.code])
 
     return (
         <>
