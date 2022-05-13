@@ -1,37 +1,9 @@
 const WebSocket = require("ws").Server
-// Redis
-// const { createClient } = require('redis')
-// const { createAdapter } = require('@socket.io/redis-adapter')
-
-// const pubServer = createClient({
-//     socket: {
-//         host: "localhost",
-//         port: 6379
-//     }
-// })
-// const subServer = pubServer.duplicate()
-
-// const clients = {
-//     publisher: pubServer,
-//     subscriber: subServer
-// }
-
-const conns = new Map()
-
-const CHANNELS = [
-    'ws-server-1',
-    'ws-server-2',
-];
 
 // code text
 var string = ""
 
 module.exports = async (server) => {
-    // await Promise.all([
-    //     pubServer.connect(),
-    //     subServer.connect()
-    // ])
-
     const ws = new WebSocket({server: server})
 
     // socket은 기본적으로 event 방식으로 작동
