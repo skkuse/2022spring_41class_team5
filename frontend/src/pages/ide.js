@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {code} from "./defaultCode"
 import Editor from "@monaco-editor/react"
-
+import axios from "axios";
 import "../css/main.css"
 import "../css/ide.css"
+
+
+
 
 export default function Ide() {
     // ide 환경 변수
@@ -95,41 +98,55 @@ export default function Ide() {
     })
 
 
+    
 
     //DB에서 받아와서 처리. 학습데이터
-    const [educontent, setEduContent] = useState({
-        title: "Chapter 1. Python의 기초 자료형",
-        index: [
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
-            "이번 실습에서는 파이썬의 기초적인 자료형부터 설명을 드리겠습니다.\n\n 파이썬은 크게 7가지 자료형을 가지고 있습니다. 이들은 각각 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 딕셔너리 자료형, 집합 자료형, 불 자료형 입니다. 각각에 대해 살펴보도록 하겠습니다.",
-            " 안녕하세요, 저희는 이은석 교수님의 소프트웨어공학개론 수업을 수강하는 5번째 Team입니다. \n 본 실습은 파이썬을 이용하여 개 / 고양이 Classifier를 만들기까지 필요한 내용들에 대해 학습을 시켜주며, 총 6개의 목차를 가지고 있습니다.",
+    const getEduContent = () => {
+        axios.get("http://127.0.0.1:5000/api/contents/")
+            .then(function (response) {
+                // response  
+            }).catch(function (error) {
+                // 오류발생시 실행
+            }).then(function () {
+                // 항상 실행
+            });
+    }
 
 
-            "이번 실습에서는 개 / 고양이 classifier에 필요한 숫자형, 문자열 자료형, 리스트 자료형, 튜플 자료형, 불 자료형에 대해서만 먼저 다뤄보겠습니다."
+    const [educontent, setEduContent] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    state = {
+        arr: []
+    }
+    useEffect(() => {
+        const fetchContents = async () => {
+            try {
+                setError(null);
+                setUsers(null);
+                setLoading(true);
+                const response = await axios.get(
+                    'http://127.0.0.1:5000/api/contents/'
+                );
+                setEduContent(response.data); //get된 data
+                this.setState({ arr: response.data });
+                consol.log(JSON.stringify(this.state.arr));//데이터가 잘 들어갔는지 확인,,
 
-        ]
-    })
+
+            } catch (e) {
+                setError(e);
+            }
+            setLoading(false);
+        };
+
+        fetchContents();
+    }, []);
+
+    /*
+    if (loading) display_text = "로딩중..";
+    if (error) display_text = "에러가 발생했습니다";
+    if (!users) display_text = "컨텐츠가 없습니다";
+    */
 
     const [modal, setModal] = useState(false)
     const onModalClick = () => {
@@ -183,6 +200,8 @@ export default function Ide() {
         }
     }, [socketConnect, setting.code])
 
+
+
     return (
         <>
             {modal ? 
@@ -196,8 +215,8 @@ export default function Ide() {
                         <div className='content-title'>{content.title}</div>
                         <div className='content-sub'>학습 내용</div>
                         <div className='content-box'>
-                            {content.index.map(item => (
-                                <div className='content-text'>{item}</div>
+                                {content.index.map(item => (
+                                    <div className='content-text'>{item}</div>
                             ))}
                         </div>
                     </div>
@@ -205,12 +224,10 @@ export default function Ide() {
             </> : <></>}
             <div className='row-center-align entire'>
                 <div className='row-component-size'>
-                    <div className='content-title'>{educontent.title}</div>
+                    <div className='content-title'> 챕터 제목 </div>
                     <div className='content-sub'>학습 내용</div>
                     <div className='educontent-box'>
-                        {educontent.index.map(item => (
-                            <div className='content-text'>{item}</div>
-                        ))}
+                        <div className='content-text'>{JSON.stringify(this.state.arr)} </div>
                     </div>
                     <div onClick={onModalClick} className='entire-index-text'>전체 학습 목차 확인하기</div>
                 </div>
