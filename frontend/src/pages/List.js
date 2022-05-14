@@ -17,6 +17,7 @@ export default function List() {
             "5. 최종 프로젝트 하기" 
         ]
     })
+    
     const [data, setData] = useState({
         name: " ",
         datalist:[]
