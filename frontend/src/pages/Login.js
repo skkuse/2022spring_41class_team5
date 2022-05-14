@@ -41,7 +41,12 @@ export default function Login() {
                         })
                         .then(function(response){
                             console.log(response);
-                            goTolist()
+                            if ( response ) {
+                                <p>true</p>;
+                                goTolist()
+                              } else {
+                                <p>False</p>;
+                              }
                         })
                         .catch(function(error){
                             console.log(error);

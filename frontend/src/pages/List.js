@@ -14,18 +14,12 @@ export default function List() {
             "2. 선형대수학 공부하기",
             "3. 머신러닝 Scikit-Learn 학습",
             "4. Pytorch 학습하기",
-            "5. 최종 프로젝트 하기"
+            "5. 최종 프로젝트 하기" 
         ]
     })
     const [data, setData] = useState({
-        id: "홍길동",
-        datalist:[
-            "1. Python Code 익히기",
-            "2. 선형대수학 공부하기",
-            "3. 머신러닝 Scikit-Learn 학습",
-            "4. Pytorch 학습하기",
-            "5. 최종 프로젝트 하기"
-        ]
+        name: " ",
+        datalist:[]
     })
     const [modal, setModal] = useState(false)
     const onModalClick = () => {
@@ -42,7 +36,7 @@ export default function List() {
                     backgroundColor: "rgba(0, 0, 0, 0.5)"
                 }}>
                     <div className='modal-box'>
-                        <div className='content-title'>{data.id}</div>
+                        <div className='content-title'>{data.name}</div>
                         <div className='content-sub'>학습 진행 현황</div>
                         <div className='content-box'>
                             {data.datalist.map(item => (
@@ -62,7 +56,7 @@ export default function List() {
                         axios
                             .get("http://127.0.0.1:5000/")  //서버
                             .then((response) => {
-                        setData([...response.data]);
+                        setData([response.data]);
                         })
                         .catch(function (error) {
                         console.log(error);
