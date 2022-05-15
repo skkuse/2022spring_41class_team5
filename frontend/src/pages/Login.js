@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../css/main.css"
 import "../css/login.css"
 import axios from "axios";
+import { setCookie} from '../actions/Cookie';
 export default function Login() {
     const navigate = useNavigate()
     const goToSignup = () => {
@@ -41,17 +42,20 @@ export default function Login() {
                         })
                         .then(function(response){
                             console.log(response);
-                            if ( response ) {
+                            if ( response ) {           
                                 <p>true</p>;
+                                setCookie([email], [email])
                                 goTolist()
-                              } else {
+                              }
+                               else {
                                 <p>False</p>;
                               }
+                              
                         })
                         .catch(function(error){
                             console.log(error);
                         });}}
-                        >회원가입하기</button>
+                        >로그인하기</button>
                     <div onClick={goToSignup} className="sub-text">비밀번호를 잊어버렸나요?</div>
                     <div onClick={goTolist} className="sub-text">목차로 이동</div>
                 </div>

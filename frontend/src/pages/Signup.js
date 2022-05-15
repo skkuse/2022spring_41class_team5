@@ -42,7 +42,13 @@ export default function Signup() {
                         })
                         .then(function(response){
                             console.log(response);
-                            goToLogin()
+                            if ( response ) {
+                                <p>true</p>;
+                                goToLogin()
+                              } else {
+                                <p>False</p>;
+                              }
+                           
                         })
                         
                         .catch(function(error){
