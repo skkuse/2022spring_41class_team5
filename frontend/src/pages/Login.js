@@ -44,7 +44,7 @@ export default function Login() {
                             console.log(response);
                             if ( response ) {           
                                 <p>true</p>;
-                                setCookie([email], [email])
+                                setCookie("email",email)
                                 goTolist()
                               }
                                else {

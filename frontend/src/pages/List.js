@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from "axios";
 import "../css/list.css"
 import { useNavigate } from "react-router-dom"
-import { setCookie, getCookie } from '../actions/Cookie';
+import {  getCookie } from '../actions/Cookie';
 export default function List() {
     const navigate = useNavigate()
     const goToide = () => {
@@ -19,10 +19,10 @@ export default function List() {
         ]
     })
     
- //   const [data, setData] = useState({
- //       name: " ",
- //       datalist:[]
-//    })
+    const [data, setData] = useState({
+        name: " ",
+        datalist:[]
+    })
     const [modal, setModal] = useState(false)
     const onModalClick = () => {
         setModal(!modal)
@@ -56,16 +56,21 @@ export default function List() {
                         onClick={() => {
                         onModalClick()
                         axios
-                            .post("https://127.0.0.1:5000/", { //서버이름
+              /*              .post("https://127.0.0.1:5000/", { //서버이름
                             
-                             email : getCookie([email]),
+                             email : getCookie("email"),
                           })
                          .then(function(response){
                             console.log(response);                    
-                        })
-                        .get("http://127.0.0.1:5000/")  //서버
+                        })*/
+                        .get("http://127.0.0.1:5000/", {
+                            params: {
+                                email: getCookie("email")
+                              }
+                        })  //서버
                             .then((response) => {
                                 console.log("DB connected");
+
                                 const data_ = response.data;
                                 for(var i in data_){
                                     console.log(data_[i].email);
