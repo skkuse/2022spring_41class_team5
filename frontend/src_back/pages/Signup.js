@@ -2,17 +2,11 @@ import React, { useState } from "react";
 import "../css/main.css"
 import "../css/login.css"
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
 export default function Signup() {
-    const navigate = useNavigate()
-    const goToLogin = () => {
-        navigate("/login")
-    }
     const [email, setemail] = useState("");
     const [name, setname] = useState("");
     const [password, setpassword] = useState("");
-  //  const [disable, setDisable] = useState(true);
-   // const [opacity, setOpacity] = useState(0.5);
     const onemailChange = (event) => {
         setemail(event.target.value);
     };
@@ -22,36 +16,19 @@ export default function Signup() {
     const onpasswordChange = (event) => {
         setpassword(event.target.value);
     };
-    const handleInput = event => {
-        return event.target.value;
-    };
-    const isValidLogin = !(email.includes('@')  && password.length >= 8);
-    const aleterror=()=>{
-            alert('회원가입에 실패하였습니다');
-
-    }
     return (
         <>
-           
             <div className="center-align entire">
                 <div className="center-align middle">
                     <div className="main-font">코헙</div>
                     <div className="login-title">이메일</div>
-                    <input className="login-input" name="email" onChange={event => {
-                    setemail(handleInput(event));
-                //    console.log(email); //handleopacity(); handleDisable();
-                   }}  />
+                    <input className="login-input" name="email" onChange={onemailChange}  />
                     <div className="login-title">이름</div>
                     <input className="login-input" name="name" onChange={onnameChange} />
                     <div className="login-title">비밀번호</div>
-                    <input className="login-input" name="password"  type="password" onChange={event => {
-                    setpassword(handleInput(event));
-                   // console.log(password); //handleopacity();handleDisable();
-                    }}/>
+                    <input className="login-input" name="password"  onChange={onpasswordChange}/>
                     <div className="center-align">
                     <button
-                        className="center-align login-button"  disabled = {isValidLogin}
-                    //    style = {{opacity: opacity}}
                         onClick={()=> {
                             axios
                             .post("http://127.0.0.1:5000/api/user/", { //서버이름
@@ -61,18 +38,10 @@ export default function Signup() {
                         })
                         .then(function(response){
                             console.log(response);
-                            if ( response ) {
-                                <p>true</p>;
-                                goToLogin()
-                              } else {
-                                <p>False</p>;
-                              }
-                           
                         })
-                        
+
                         .catch(function(error){
                             console.log(error);
-                            aleterror();
                         });}}
                         >회원가입하기</button>
                         </div>    
