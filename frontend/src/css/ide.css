@@ -100,3 +100,12 @@
     min-height: 80px;
     margin-top: 16px;
 }
+
+.chapter-button {
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 8px;
+    flex-direction: row;
+    cursor: pointer;
+}
