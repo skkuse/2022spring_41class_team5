@@ -95,20 +95,6 @@ export default function Ide() {
     })
 
     //DB에서 받아와서 처리. 학습데이터
-    const getEduContent = () => {
-        axios.get("http://127.0.0.1:5000/api/content/")
-            .then(function (response) {
-                // response  
-
-            }).catch(function (error) {
-                // 오류발생시 실행
-
-            }).then(function () {
-                // 항상 실행
-
-
-            });
-    }
     const [eduContent, setEduContent] = useState([]);
     useEffect(() => {
         async function fetchContent() {
