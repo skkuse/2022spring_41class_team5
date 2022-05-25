@@ -4,3 +4,6 @@ frontend/node_modules
 frontend/.DS_Store
 .DS_Store
 express/dataset
+frontend/yarn.lock
+backend/django/project/__pycache__/*
+backend/django/login/__pycache__/*
