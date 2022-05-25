@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\backend",
+    "\\backend\\django",
+    "\\backend\\django\\project",
+    "\\contents",
+    "\\contents\\1. 파이썬의 기초 자료형",
+    "\\frontend",
+    "\\frontend\\src",
+    "\\frontend\\src\\css",
+    "\\frontend\\src\\pages"
+  ],
+  "SelectedNode": "\\frontend\\src\\pages\\ide.js",
+  "PreviewInSolutionExplorer": false
+}

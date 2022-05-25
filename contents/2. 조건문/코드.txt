@@ -1,0 +1,50 @@
+(예시코드1)
+money=True
+if money:
+    print("택시 타고 가자")
+else:
+    print("걸어가자")
+    
+    
+(예시코드2)
+
+if money>=3000:
+    print("택시 타고 가자")
+elif money>1000 and money<3000:
+    print("자전거 타고 가자")
+else:
+    print("걸어 가자")
+
+
+(예시코드3)
+if money>=3000:
+    print("택시 타고 가자")
+if money>=1000 and money<3000:
+    print("자전거 타고 가자")
+if money<1000:
+    print("걸어 가자")
+
+(예시코드4)
+1 in [1,2,3]
+
+1 not in [1,2,3]
+
+
+
+(실습 문제1)
+
+if score>=90:
+    print('A')
+elif score>=80 and score<90:
+    print('B')
+else:
+    print('C')
+    
+
+
+(실습 문제2)
+if fruit in fruits:
+    print('yummy!)
+else:
+    print('hungry!)
+ 

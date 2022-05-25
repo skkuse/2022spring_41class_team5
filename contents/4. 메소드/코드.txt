@@ -1,0 +1,45 @@
+(예시코드1)
+def add(a,b):
+    return a+b
+    
+(예시코드2)
+print(add(3,4))
+
+<결과 : 7>
+
+(예시코드3)
+def one():
+    return 1
+
+<결과 : 1>
+
+
+(예시코드5)
+def say():
+    print('hi')
+
+(예시코드6)
+def add_and_mul(a,b):
+    return a+b,a*b
+    
+(예시코드7)
+ret=add_and_mul(3,4)
+
+(예시코드8)
+add,mul=add_and_mul(3,4)
+
+
+(실습코드1)
+def is_odd(number):
+    if number%2==1:
+        return True
+    else:
+        return False
+        
+(실습코드2)
+def factorial(number):
+    sum=0
+    for i in range(number):
+        sum+=(i+1)
+    
+    return sum

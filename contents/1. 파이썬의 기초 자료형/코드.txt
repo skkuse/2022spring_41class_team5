@@ -1,0 +1,54 @@
+(실습코드 1)
+head='python'
+tail=' is fun!'
+head+tail
+
+(실습코드 2)
+'python'*2 
+
+(실습코드 3)
+a="Life is too short, You need Python"
+a[3]
+
+(실습코드 4)
+a="Life is too short, You need Python"
+a[0:4]
+
+(실습코드 5)
+"I eat %d apples" % 3
+
+(실습코드 6)
+"I eat {0} apples".format(3)
+
+(실습코드 7)
+a=[1,2,'Life',['is','short']]
+
+(실습코드 8)
+a=[1,2,3]
+a[0]
+a[0:2]
+
+(실습코드 9)
+a=[1,2,3]
+b=[4,5,6]
+a+b
+a*2
+
+(실습코드 10)
+a=[1,2,3]
+del a[1]
+a.append(4)
+
+(실습코드 11)
+a=(1,2,3)
+b=(4,5,6)
+a+b
+a*2
+a[0]
+a[0:2]
+
+(실습 코드 12)
+a=2>1
+print(a)
+
+
