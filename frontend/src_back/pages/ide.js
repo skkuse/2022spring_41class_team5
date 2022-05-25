@@ -7,6 +7,7 @@ import "../css/ide.css"
 
 
 
+
 export default function Ide() {
     // ide 환경 변수
     const [setting, setSetting] = useState({
@@ -114,78 +115,67 @@ export default function Ide() {
 
             });
     }
+    const [educontent, setEduContent] = useState(null);
+    /*
+    
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    var state = {
+        arr: []
+    }
+    */
+
+    /*
+    useEffect(() => {
+        const fetchContents = async () => {
+            try {
+                setError(null);
+                setEduContent(null);
+                setLoading(true);
+                const response = await axios.get(
+                    'http://127.0.0.1:5000/api/contents/'
+                );
+                setEduContent(response.data); //get된 data
+                this.setState({ arr: response.data });
+                console.log(JSON.stringify(this.state.arr));//데이터가 잘 들어갔는지 확인,,
 
 
-    const [eduContent, setEduContent] = useState([]);
+            } catch (e) {
+                setError(e);
+            }
+            setLoading(false);
+        };
 
+        fetchContents();
+    }, []);
+     */
 
     useEffect(() => {
-        async function fetchContent() {
-            try {
-                const response = await axios.get("http://127.0.0.1:5000/api/content/")
-                const jsondata = await response.data;
-
-                setEduContent([jsondata[0].content_content, jsondata[1].content_content, jsondata[2].content_content, jsondata[3].content_content, jsondata[4].content_content, jsondata[5].content_content] );
-
-                /*
-                for (var i in jsondata) {
-                    //console.log(jsondata[i].content_id);
-                    //console.log(jsondata[i].content_content);
-
-                    console.log("들어가야 하는 내용: " + jsondata[i].content_content);
-                    setEduContent([ ... eduContent, jsondata[i].content_content]);
-
-                    console.log("실제로 들어간 내용: " + eduContent);
-                }
-
-                 * */
-
+        axios.get("http://127.0.0.1:5000/api/content/")
+            .then(function (response) {
                 // response  
                 console.log("DB connected");
-            } catch (error) {
-                // 오류발생시 실행
-                for (var idx in content.index) {
-                    setEduContent(eduContent.concat(content.index[idx]));
-                    console.log(eduContent);
+                const jsondata_ = response.data;
+                for(var i in jsondata_){
+                    console.log(jsondata_[i].content_id);
+                    console.log(jsondata_[i].content_content);
                 }
+                //console.log(response.data);
 
+            }).catch(function (error) {
+                // 오류발생시 실행
                 console.log("DB connect failed");
-            }
-        }
-        fetchContent();
-        
+            }).then(function () {
+                // 항상 실행
+                console.log("Nothing happened");
+            })
+    }, [])
 
-    }, []);
-
-
-
-    const [chapter, setChapter] = useState(0);
-    const onNextClick = () => {
-        if (chapter < 5) {
-            const num = chapter + 1;
-            setChapter(num);
-            console.log(chapter);
-        }
-        else {
-            setChapter(5);
-            console.log(chapter+" End of the contents");
-        }
-
-        
+    const [modal, setModal] = useState(false)
+    const onModalClick = () => {
+        setModal(!modal)
     }
-    const onBeforeClick = () => {
-        if (chapter > 0) {
-            const num = chapter - 1;
-            setChapter(num);
-            console.log(chapter);
-        }
-        else {
-            setChapter(0);
-            console.log(chapter + " Start of the contents");
-        }
 
-
-    }
     
     var ws = useRef(null)
     const [socketConnect, setSocketConnect] = useState(false)
@@ -233,15 +223,7 @@ export default function Ide() {
         }
     }, [socketConnect, setting.code])
 
-    const [modal, setModal] = useState(false)
-    const onModalClick = () => {
-        setModal(!modal)
-    }
 
-    const [modal2, setModal2] = useState(false)
-    const onModal2Click = () => {
-        setModal2(!modal2)
-    }
 
     return (
         <>
@@ -262,58 +244,18 @@ export default function Ide() {
                         </div>
                     </div>
                 </div>
-                </> : <></>}
-
-
-
-            
-
-
-
-            {modal2 ?
-                <>
-                    <div onClick={onModal2Click} className='center-align entire' style={{
-                        position: "absolute",
-                        zIndex: 1,
-                        backgroundColor: "rgba(0, 0, 0, 0.5)"
-                    }}>
-                        <div className='modal-box'>
-                            <div className='content-title'>사용자이름</div>
-                            <div className='content-sub'>학습 진행 현황</div>
-                            <div className='content-box'>
-                                {content.index.map(item => (
-                                    <div className='content-text'>{item}</div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </> : <></>}
-
-
+            </> : <></>}
 
             <div className='row-center-align entire'>
                 <div className='row-component-size'>
-                    <div className='content-title'>{content.index[chapter]} </div>
+                    <div className='content-title'> {educontent[0].content_id} </div>
                     <div className='content-sub'>학습 내용</div>
-
-                    <div className='row-center-align'>
-                        <div onClick={onBeforeClick} className='chapter-button' style={{
-                        flex : 1
-                        }}> 이전 </div>
-                            <div onClick={onNextClick} className='chapter-button' style={{
-                                flex: 1
-                            }}> 다음 </div>
-                    </div>
-
                     <div className='educontent-box'>
-                        <div className='content-text' > {eduContent[chapter]} </div>
+                        <div className='content-text' > {educontent[0].content_content} </div>
                     </div>
                     <div onClick={onModalClick} className='entire-index-text'>전체 학습 목차 확인하기</div>
-                    
                 </div>
                 <div className='row-component-size'>
-                    <div onClick={onModal2Click} className='content-sub'>사용자기록</div>
-
                     <div>
                         <div>
                             <select id='lang' onChange={(e) => onLanguageChange(e)}>
