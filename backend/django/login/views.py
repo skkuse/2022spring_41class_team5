@@ -1,16 +1,42 @@
 from django.shortcuts import render
-from rest_framework.response import Response
+from django.http import *
+from rest_framework.response import *
 from .models import *
+from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import *
+
 
 
 class userapi(APIView):
     def get(self, request):
         queryset = user.objects.all()
         serializer = userSerializer(queryset, many=True)
-        print(serializer.data)
+        print(queryset)
         return Response(serializer.data)
+        
+    
+    def post(self, request):
+        serializer = userSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        print(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+    
+    
+    def put(self, request):
+        serializer = loginSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer.data)
+        queryset = user.objects.all()
+        dbserializer = userSerializer(queryset, many=True)
+        for i in dbserializer.data:
+            if i["email"] == serializer.data['email'] and i["password"] == serializer.data['password']:
+                return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+        
         """
         if request.method == 'GET':
             queryset = user.objects.all()
@@ -35,10 +61,28 @@ class userapi(APIView):
         
 class progressapi(APIView):
     def get(self, request):
-        queryset = progress.objects.all()
-        print(queryset)
-        serializer = progressSerializer(queryset, many=True)
-        return Response(serializer.data)
+        reemail = request.GET.get('email', None)
+        print(reemail)
+        serializer = loginSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer.data)
+        
+        newqueryset = progress.objects.filter(email=reemail)
+        if newqueryset.exists():
+            progressserializer = progressSerializer(newqueryset, many=True)
+            print(progressserializer.data)
+            return Response(progressserializer.data)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+    
+    def post(self, request):
+        serializer = progressSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        print(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
 
 class submitapi(APIView):
     def get(self, request):
@@ -46,6 +90,16 @@ class submitapi(APIView):
         print(queryset)
         serializer = submitSerializer(queryset, many=True)
         return Response(serializer.data)
+    
+    
+    def post(self, request):
+        serializer = submitSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            print(serializer.data)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+        
     
 class problemapi(APIView):
     def get(self, request):
@@ -57,7 +111,22 @@ class problemapi(APIView):
 class contentapi(APIView):
     def get(self, request):
         queryset = content.objects.all()
-        print(queryset)
         serializer = contentSerializer(queryset, many=True)
+        print(serializer.data)
         return Response(serializer.data)
-# Create your views here.
+
+
+class skeletonapi(APIView):
+    def get(self, request):
+        queryset = skeleton.objects.all()
+        serializer = skeletonSerializer(queryset, many=True)
+        print(serializer.data)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = skeletonSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        print(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 

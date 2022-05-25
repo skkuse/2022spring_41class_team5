@@ -2,19 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import {code} from "./defaultCode"
 import Editor from "@monaco-editor/react"
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { getCookie } from '../actions/Cookie';
 import "../css/main.css"
 import "../css/ide.css"
 
 
 
 export default function Ide() {
-    const navigate = useNavigate()
-    const goToide = () => {
-        navigate("/ide")
-    }
-
     // ide 환경 변수
     const [setting, setSetting] = useState({
         code: code.python,
@@ -134,6 +127,18 @@ export default function Ide() {
 
                 setEduContent([jsondata[0].content_content, jsondata[1].content_content, jsondata[2].content_content, jsondata[3].content_content, jsondata[4].content_content, jsondata[5].content_content] );
 
+                /*
+                for (var i in jsondata) {
+                    //console.log(jsondata[i].content_id);
+                    //console.log(jsondata[i].content_content);
+
+                    console.log("들어가야 하는 내용: " + jsondata[i].content_content);
+                    setEduContent([ ... eduContent, jsondata[i].content_content]);
+
+                    console.log("실제로 들어간 내용: " + eduContent);
+                }
+
+                 * */
 
                 // response  
                 console.log("DB connected");
@@ -238,19 +243,6 @@ export default function Ide() {
         setModal2(!modal2)
     }
 
-
-
-
-
-
-
-
-
-
-    const [name, setName] = useState("")
-    const [datalist, setDatalist] = useState([])
-
-
     return (
         <>
             {modal ? 
@@ -286,10 +278,12 @@ export default function Ide() {
                         backgroundColor: "rgba(0, 0, 0, 0.5)"
                     }}>
                         <div className='modal-box'>
-                            <div className='content-title'>{name}</div>
+                            <div className='content-title'>사용자이름</div>
                             <div className='content-sub'>학습 진행 현황</div>
                             <div className='content-box'>
-                                {datalist}
+                                {content.index.map(item => (
+                                    <div className='content-text'>{item}</div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -318,29 +312,7 @@ export default function Ide() {
                     
                 </div>
                 <div className='row-component-size'>
-                    <div onClick={() => {
-                        onModal2Click()
-                        axios
-                            .get("http://127.0.0.1:5000/api/progress/", {
-                                params: {
-                                    email: getCookie("email")
-                                }
-                            })  //서버
-                            .then((response) => {
-                                console.log("DB connected");
-                                const _data = response.data;
-                                for (var i in _data) {
-                                    console.log(_data[i].email);
-                                    console.log(_data[i].problem_id_text);
-                                    //     setData(_data[i].email,_data[i].problem_id_text)
-                                    setName(_data[i].email);
-                                    setDatalist(_data[i].problem_id_text);
-                                }
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
-                    }} className='content-sub'>사용자기록</div>
+                    <div onClick={onModal2Click} className='content-sub'>사용자기록</div>
 
                     <div>
                         <div>
