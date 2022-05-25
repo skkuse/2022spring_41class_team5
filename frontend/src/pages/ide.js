@@ -5,8 +5,6 @@ import axios from "axios";
 import "../css/main.css"
 import "../css/ide.css"
 
-
-
 export default function Ide() {
     // ide 환경 변수
     const [setting, setSetting] = useState({
@@ -96,9 +94,6 @@ export default function Ide() {
         ]
     })
 
-
-
-
     //DB에서 받아와서 처리. 학습데이터
     const getEduContent = () => {
         axios.get("http://127.0.0.1:5000/api/content/")
@@ -114,11 +109,7 @@ export default function Ide() {
 
             });
     }
-
-
     const [eduContent, setEduContent] = useState([]);
-
-
     useEffect(() => {
         async function fetchContent() {
             try {
@@ -153,11 +144,7 @@ export default function Ide() {
             }
         }
         fetchContent();
-        
-
     }, []);
-
-
 
     const [chapter, setChapter] = useState(0);
     const onNextClick = () => {
@@ -170,8 +157,6 @@ export default function Ide() {
             setChapter(5);
             console.log(chapter+" End of the contents");
         }
-
-        
     }
     const onBeforeClick = () => {
         if (chapter > 0) {
@@ -183,13 +168,10 @@ export default function Ide() {
             setChapter(0);
             console.log(chapter + " Start of the contents");
         }
-
-
     }
     
     var ws = useRef(null)
     const [socketConnect, setSocketConnect] = useState(false)
-
     useEffect(() => {
         if (!ws.current) {
             ws.current = new WebSocket("ws://localhost:8000")
@@ -215,12 +197,6 @@ export default function Ide() {
                 })
             };
         }
-        // const socket = io.connect("http://localhost:8000/history")
-        // socket.emit("code", {code: setting.code})
-        // return () => {
-        //     console.log("clean up")
-        //     ws.current.close()
-        // }
     }, [])
 
     useEffect(() => {
@@ -263,13 +239,6 @@ export default function Ide() {
                     </div>
                 </div>
                 </> : <></>}
-
-
-
-            
-
-
-
             {modal2 ?
                 <>
                     <div onClick={onModal2Click} className='center-align entire' style={{
@@ -288,14 +257,10 @@ export default function Ide() {
                         </div>
                     </div>
                 </> : <></>}
-
-
-
             <div className='row-center-align entire'>
                 <div className='row-component-size'>
                     <div className='content-title'>{content.index[chapter]} </div>
                     <div className='content-sub'>학습 내용</div>
-
                     <div className='row-center-align'>
                         <div onClick={onBeforeClick} className='chapter-button' style={{
                         flex : 1
@@ -304,16 +269,13 @@ export default function Ide() {
                                 flex: 1
                             }}> 다음 </div>
                     </div>
-
                     <div className='educontent-box'>
                         <div className='content-text' > {eduContent[chapter]} </div>
                     </div>
                     <div onClick={onModalClick} className='entire-index-text'>전체 학습 목차 확인하기</div>
-                    
                 </div>
                 <div className='row-component-size'>
                     <div onClick={onModal2Click} className='content-sub'>사용자기록</div>
-
                     <div>
                         <div>
                             <select id='lang' onChange={(e) => onLanguageChange(e)}>
