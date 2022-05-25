@@ -2,21 +2,29 @@ from rest_framework import serializers
 from .models import *
 
 class userSerializer(serializers.ModelSerializer) :
+    # def raiseerror(self):
+    #     raise serializers.ValidationError("Those passwords don't match.")
     class Meta :
         model = user        
-        fields = ['user_id' ,'name','email','password']            
+        fields = ['name','email','password']       
+             
+
+class loginSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = user        
+        fields = ['email','password']   
 
 
 class progressSerializer(serializers.ModelSerializer) :
     class Meta :
         model = progress        
-        fields = ['user_id' ,'problem_id']   
+        fields = ['email' ,'problem_id_text']   
        
         
 class submitSerializer(serializers.ModelSerializer) :
     class Meta :
         model = submit        
-        fields = ['user_id' ,'code','problem_id']   
+        fields = ['code']   
         
         
 class problemSerializer(serializers.ModelSerializer) :
@@ -29,3 +37,13 @@ class contentSerializer(serializers.ModelSerializer) :
     class Meta :
         model = content        
         fields = ['content_id' ,'content_content']   
+        
+class emailSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = progress        
+        fields = ['email'] 
+        
+class skeletonSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = skeleton        
+        fields = ['skeleton_id', 'skeleton_code', 'skeleton_answer'] 
