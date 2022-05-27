@@ -13,10 +13,6 @@ export default function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
-  const goToList = () => {
-    navigate("/list");
-  };
-
   const handleInput = (event) => {
     return event.target.value;
   };
@@ -67,7 +63,6 @@ export default function Login() {
                   if (response) {
                     <p>true</p>;
                     setCookie("email", email);
-                    goToList();
                   } else {
                     <p>False</p>;
                   }
