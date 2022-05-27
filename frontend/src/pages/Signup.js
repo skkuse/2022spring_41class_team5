@@ -11,8 +11,6 @@ export default function Signup() {
     const [email, setemail] = useState("");
     const [name, setname] = useState("");
     const [password, setpassword] = useState("");
-  //  const [disable, setDisable] = useState(true);
-   // const [opacity, setOpacity] = useState(0.5);
     const onemailChange = (event) => {
         setemail(event.target.value);
     };
@@ -25,7 +23,7 @@ export default function Signup() {
     const handleInput = event => {
         return event.target.value;
     };
-    const isValidLogin = !(email.includes('@')  && password.length >= 8);
+    const isValidLogin = !(email.includes('@')  && password.length >= 4 && password.length <= 16);
     const aleterror=()=>{
             alert('회원가입에 실패하였습니다');
 
@@ -39,19 +37,18 @@ export default function Signup() {
                     <div className="login-title">이메일</div>
                     <input className="login-input" name="email" onChange={event => {
                     setemail(handleInput(event));
-                //    console.log(email); //handleopacity(); handleDisable();
                    }}  />
                     <div className="login-title">이름</div>
                     <input className="login-input" name="name" onChange={onnameChange} />
                     <div className="login-title">비밀번호</div>
                     <input className="login-input" name="password"  type="password" onChange={event => {
                     setpassword(handleInput(event));
-                   // console.log(password); //handleopacity();handleDisable();
+
                     }}/>
                     <div className="center-align">
                     <button
                         className="center-align login-button"  disabled = {isValidLogin}
-                    //    style = {{opacity: opacity}}
+              
                         onClick={()=> {
                             axios
                             .post("http://127.0.0.1:5000/api/user/", { //서버이름
