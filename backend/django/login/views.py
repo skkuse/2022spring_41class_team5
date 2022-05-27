@@ -4,7 +4,6 @@ from rest_framework.response import *
 from .models import *
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.parsers import *
 from .serializers import *
 
 
@@ -77,16 +76,12 @@ class progressapi(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
     
     def post(self, request):
-        serializer = progressSerializer(progress,data=request.data)
-        for i in serializer():
-            print(i)
+        serializer = progressSerializer(data=request.data)
         if serializer.is_valid():
-            print(serializer)
             serializer.save()
             return Response(serializer.data)
         print(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
-
 
 
 class submitapi(APIView):
@@ -98,17 +93,12 @@ class submitapi(APIView):
     
     
     def post(self, request):
-        try:
-            model = submit.objects.get(email = request.data['email'])
-            model.delete()
-        except:
-            pass
         serializer = submitSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            print(serializer.data)
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
         
     
 class problemapi(APIView):

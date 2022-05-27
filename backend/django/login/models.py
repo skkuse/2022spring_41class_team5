@@ -14,10 +14,7 @@ class progress(models.Model):
 
         
 class submit(models.Model):
-    email = models.CharField(primary_key=True, max_length=45, blank=False)
-    code = models.TextField(blank=True, null=True)
-    result = models.TextField(blank=True, null=True)
-
+    code = models.TextField(blank=False)
     
         
 class problem(models.Model):
