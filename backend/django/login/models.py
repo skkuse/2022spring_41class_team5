@@ -1,4 +1,3 @@
-from pickle import FALSE
 from django.db import models
 
 class user(models.Model):
@@ -14,7 +13,10 @@ class progress(models.Model):
 
         
 class submit(models.Model):
-    code = models.TextField(blank=False)
+    email = models.CharField(primary_key=True, max_length=45, blank=False)
+    code = models.TextField(blank=True, null=True)
+    result = models.TextField(blank=True, null=True)
+
     
         
 class problem(models.Model):
