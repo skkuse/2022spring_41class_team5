@@ -56,12 +56,36 @@ export default function Ide() {
     snippetSuggestions: "inline",
   };
 
+  // 현재 문제의 장
+  const [chapter, setChapter] = useState(0);
+  const onNextClick = () => {
+    if (chapter < 5) {
+      const num = chapter + 1;
+      setChapter(num);
+      console.log(chapter);
+    } else {
+      setChapter(5);
+      console.log(chapter + " End of the contents");
+    }
+  };
+  const onBeforeClick = () => {
+    if (chapter > 0) {
+      const num = chapter - 1;
+      setChapter(num);
+      console.log(chapter);
+    } else {
+      setChapter(0);
+      console.log(chapter + " Start of the contents");
+    }
+  };
+
   const postSubmit = async () => {
     axios
       .post("http://127.0.0.1:5000/api/submit/", {
         email: getCookie("email"),
         code: setting.code,
         result: result,
+        num: chapter,
       })
       .then(function (response) {
         console.log(response);
@@ -146,29 +170,6 @@ export default function Ide() {
     }
     fetchContent();
   }, []);
-
-  // 현재 문제의 장
-  const [chapter, setChapter] = useState(0);
-  const onNextClick = () => {
-    if (chapter < 5) {
-      const num = chapter + 1;
-      setChapter(num);
-      console.log(chapter);
-    } else {
-      setChapter(5);
-      console.log(chapter + " End of the contents");
-    }
-  };
-  const onBeforeClick = () => {
-    if (chapter > 0) {
-      const num = chapter - 1;
-      setChapter(num);
-      console.log(chapter);
-    } else {
-      setChapter(0);
-      console.log(chapter + " Start of the contents");
-    }
-  };
 
   // 문제에 맞는 스켈레톤 코드
   const [skeleton, setSkeleton] = useState([]);
