@@ -63,6 +63,7 @@ export default function Login() {
                   if (response) {
                     <p>true</p>;
                     setCookie("email", email);
+                    navigate("/list");
                   } else {
                     <p>False</p>;
                   }

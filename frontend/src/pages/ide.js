@@ -4,6 +4,7 @@ import Editor from "@monaco-editor/react";
 import axios from "axios";
 import "../css/main.css";
 import "../css/ide.css";
+import { getCookie } from "../actions/Cookie";
 
 export default function Ide() {
   // ide 환경 변수
@@ -55,10 +56,25 @@ export default function Ide() {
     snippetSuggestions: "inline",
   };
 
+  const postSubmit = async () => {
+    axios
+      .post("http://127.0.0.1:5000/api/submit/", {
+        email: getCookie("email"),
+        code: setting.code,
+        result: result,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
     alert("코드를 제출하셨습니다.");
-    fetch("http://127.0.0.1:8000/api/submit", {
+    fetch("http://127.0.0.1:8000/api/result", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,6 +93,7 @@ export default function Ide() {
           console.log("res", res.result);
           setResult(res.result);
         });
+        postSubmit();
       })
       .catch((err) => {
         console.log("error", err);

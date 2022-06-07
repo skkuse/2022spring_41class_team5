@@ -13,7 +13,8 @@ class progress(models.Model):
 
         
 class submit(models.Model):
-    email = models.CharField(primary_key=True, max_length=45, blank=False)
+    submit_id = models.IntegerField(primary_key=True, blank=False)
+    email = models.CharField(max_length=45, blank=False)
     code = models.TextField(blank=True, null=True)
     result = models.TextField(blank=True, null=True)
 
