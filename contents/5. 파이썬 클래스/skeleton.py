@@ -79,7 +79,7 @@ def test1():
     cal.div(3)
     answer.append(cal.history)
 
-    return answer #[1,2,10,4]
+    return answer #[1,2,12,4]
 
 def test2():
     answer=[]
@@ -105,7 +105,7 @@ sum=0
 #전체 문제 개수
 num_pb=2
 
-if(test1()==[1,2,10,4]) : sum+=1
+if(test1()==[[1,2,12,4]]) : sum+=1
 if(test2()==[[12,36,6],[7,5,1]]) : sum+=1
 
 
