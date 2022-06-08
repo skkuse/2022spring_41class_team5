@@ -25,7 +25,6 @@ export default function Ide() {
   };
 
   const onCodeChange = (newCode, e) => {
-    console.log(e);
     setSetting({
       ...setting,
       code: newCode,
@@ -62,20 +61,16 @@ export default function Ide() {
     if (chapter < 5) {
       const num = chapter + 1;
       setChapter(num);
-      console.log(chapter);
     } else {
       setChapter(5);
-      console.log(chapter + " End of the contents");
     }
   };
   const onBeforeClick = () => {
     if (chapter > 0) {
       const num = chapter - 1;
       setChapter(num);
-      console.log(chapter);
     } else {
       setChapter(0);
-      console.log(chapter + " Start of the contents");
     }
   };
 
@@ -85,7 +80,7 @@ export default function Ide() {
         email: getCookie("email"),
         code: setting.code,
         result: result,
-        num: chapter,
+        num: chapter + 1,
       })
       .then(function (response) {
         console.log(response);
@@ -94,6 +89,25 @@ export default function Ide() {
         console.log(error);
       });
   };
+
+  const [good, setGood] = useState(0);
+  const [min, setMin] = useState(3);
+  const [sec, setSec] = useState(0);
+  const time = useRef(180);
+  const timer = useRef(null);
+  useEffect(() => {
+    timer.current = setInterval(() => {
+      setMin(parseInt(time.current / 60));
+      setSec(time.current % 60);
+      time.current -= 1;
+    }, 1000);
+    return () => {
+      clearInterval(timer.current);
+      if (good > 0) {
+        postSubmit();
+      }
+    };
+  }, []);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -140,7 +154,7 @@ export default function Ide() {
   //DB에서 받아와서 처리. 학습데이터
   const [eduContent, setEduContent] = useState([]);
   useEffect(() => {
-    async function fetchContent() {
+    async function fetchProblem() {
       try {
         const response = await axios.get("http://127.0.0.1:5000/api/problem/");
         const jsondata = await response.data;
@@ -168,12 +182,13 @@ export default function Ide() {
         console.log("DB connect failed");
       }
     }
-    fetchContent();
+    fetchProblem();
   }, []);
 
   // 문제에 맞는 스켈레톤 코드
-  const [skeleton, setSkeleton] = useState([]);
+  const [skeleton, setSkeleton] = useState();
   const [answerCode, setAnswerCode] = useState([]);
+  const [final, setFinal] = useState(null);
   useEffect(() => {
     async function fetchContent() {
       try {
@@ -219,7 +234,41 @@ export default function Ide() {
         console.log("Skeleton DB connect failed");
       }
     }
-    fetchContent();
+
+    async function getCode() {
+      try {
+        setGood(0);
+        setFinal(null);
+        const response = await axios.get("http://127.0.0.1:5000/api/submit/");
+        const jsondata = await response.data;
+        for (var data in jsondata) {
+          if (
+            (jsondata[data]["email"] == getCookie("email")) &
+            (jsondata[data]["num"] == String(chapter + 1))
+          ) {
+            var array = ["", "", "", "", "", ""];
+            array[chapter] = jsondata[data]["code"];
+            setSkeleton(array);
+            setSetting({
+              ...setting,
+              code: array[chapter],
+            });
+            setFinal(array);
+          }
+        }
+        if (final == null) {
+          fetchContent();
+          setGood(1);
+        }
+      } catch (error) {
+        console.log(error);
+        if (final == null) {
+          fetchContent();
+          setGood(1);
+        }
+      }
+    }
+    getCode();
   }, [chapter]);
 
   var ws = useRef(null);

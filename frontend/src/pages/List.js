@@ -60,21 +60,16 @@ export default function List() {
             onClick={() => {
               onModalClick();
               axios
-                .get("http://127.0.0.1:5000/api/progress/", {
-                  params: {
-                    email: getCookie("email"),
-                  },
-                }) //서버
+                .get("http://127.0.0.1:5000/api/submit/") //서버
                 .then((response) => {
-                  console.log("DB connected");
+                  var array = ["", "", "", "", "", ""];
                   const _data = response.data;
                   for (var i in _data) {
-                    console.log(_data[i].email);
-                    console.log(_data[i].problem_id_text);
-                    //     setData(_data[i].email,_data[i].problem_id_text)
-                    setName(_data[i].email);
-                    setDatalist(_data[i].problem_id_text);
+                    if (_data[i]["email"] == getCookie("email")) {
+                      array[i] = _data[i].num;
+                    }
                   }
+                  setDatalist(array);
                 })
                 .catch(function (error) {
                   console.log(error);

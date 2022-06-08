@@ -24,7 +24,7 @@ class progressSerializer(serializers.ModelSerializer) :
 class submitSerializer(serializers.ModelSerializer) :
     class Meta :
         model = submit        
-        fields = ['email','code','result']   
+        fields = ['email','code','result', 'num']   
         
 class problemSerializer(serializers.ModelSerializer) :
     class Meta :
