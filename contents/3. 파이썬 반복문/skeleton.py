@@ -1,4 +1,4 @@
-def solution1():
+def solution1(num):
     cnt=0
     sum=0
     while # 이곳에 코드를 작성해주세요:
