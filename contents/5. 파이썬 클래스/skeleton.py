@@ -79,7 +79,7 @@ def test1():
     cal.div(3)
     answer.append(cal.history)
 
-    return answer #[1,2,12,4]
+    return answer #[[1,2,12,4]]
 
 def test2():
     answer=[]
