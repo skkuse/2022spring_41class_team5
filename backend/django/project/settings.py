@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '*',
-    ]
+]
 
 
 # Application definition
@@ -87,10 +87,10 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': { 
     	'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'db', 
+        'NAME': 'test', 
         'USER': 'root', 
-        'PASSWORD': 'l00685', 
-        'HOST': 'localhost', 
+        'PASSWORD': '1234', 
+        'HOST': '127.0.0.1', 
         'PORT': '3306', 
      } 
 }
